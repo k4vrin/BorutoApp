@@ -23,8 +23,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             BorutoAppTheme {
-
+                // Initialize navController
                 navController = rememberNavController()
+                // Setup NavGraph and pass navController
                 SetupNavGraph(navController = navController)
 
             }
