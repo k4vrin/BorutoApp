@@ -13,6 +13,18 @@ You can navigate between composables while taking advantage of the Navigation co
 
 _[See More](https://developer.android.com/jetpack/compose/navigation)_
 
+### Accompanist
+
+A collection of extension libraries for Jetpack Compose
+
+_[See More](https://github.com/google/accompanist)_
+
+#### Pager
+
+A library that provides utilities for building paginated layouts in Jetpack Compose, similar to Android's ViewPager.
+
+_[See More](https://github.com/google/accompanist/tree/main/pager)_
+
 
 ## Room
 The Room persistence library provides an abstraction layer over SQLite to allow for more robust database access while harnessing the full power of SQLite.
@@ -31,6 +43,13 @@ Implementing dependency injection provides you with the following advantages:
 - Ease of testing
 
 _[See More](https://developer.android.com/training/dependency-injection)_
+
+## DataStore
+
+Jetpack DataStore is a data storage solution that allows you to store key-value pairs or typed objects with protocol buffers.
+DataStore uses Kotlin coroutines and Flow to store data asynchronously, consistently, and transactionally.
+
+_[See More](https://developer.android.com/topic/libraries/architecture/datastore)_
 
 ### Hilt
 Hilt is a dependency injection library for Android that reduces the boilerplate of doing manual dependency injection in your project.

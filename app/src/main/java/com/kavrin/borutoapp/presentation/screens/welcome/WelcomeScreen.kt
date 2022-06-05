@@ -22,6 +22,7 @@ import com.google.accompanist.pager.*
 import com.kavrin.borutoapp.R
 import com.kavrin.borutoapp.domain.model.OnBoardingPage
 import com.kavrin.borutoapp.ui.theme.*
+import com.kavrin.borutoapp.util.Constants.LAST_ON_BOARDING_PAGE
 import com.kavrin.borutoapp.util.Constants.ON_BOARDING_PAGE_COUNT
 
 @ExperimentalPagerApi
@@ -65,6 +66,7 @@ fun WelcomeScreen(navController: NavHostController) {
 			spacing = PAGING_INDICATOR_SPACING
 		)
 
+		//// Finish Button ////
 		FinishButton(
 			modifier = Modifier
 				.weight(1f),
@@ -132,10 +134,11 @@ fun FinishButton(
 		verticalAlignment = Alignment.Top,
 		horizontalArrangement = Arrangement.Center
 	) {
+		// Animate the visibility of finish button
 		AnimatedVisibility(
 			modifier = Modifier
 				.fillMaxWidth(),
-			visible = pagerState.currentPage == 2
+			visible = pagerState.currentPage == LAST_ON_BOARDING_PAGE
 		) {
 			Button(
 				onClick = onClick,
