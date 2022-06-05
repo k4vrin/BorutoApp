@@ -6,7 +6,9 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.google.accompanist.pager.ExperimentalPagerApi
 import com.kavrin.borutoapp.presentation.screens.splash.SplashScreen
+import com.kavrin.borutoapp.presentation.screens.welcome.WelcomeScreen
 import com.kavrin.borutoapp.util.Constants.DETAILS_ARGUMENT_KEY
 
 /**
@@ -17,12 +19,13 @@ import com.kavrin.borutoapp.util.Constants.DETAILS_ARGUMENT_KEY
  * Setup navGraph with Screens to define all destinations that app use
  * Should be called from main activity
  */
+@ExperimentalPagerApi
 @Composable
 fun SetupNavGraph(navController: NavHostController) {
 	// Define NavHost(start destination)
 	NavHost(
 		navController = navController,
-		startDestination = Screen.Splash.route
+		startDestination = Screen.Welcome.route
 		// Define all destination
 	) {
 		//// Splash Screen ////
@@ -33,6 +36,7 @@ fun SetupNavGraph(navController: NavHostController) {
 		//// On-boarding Screen ////
 		composable(route = Screen.Welcome.route) {
 			// Define actual composable screen
+			WelcomeScreen(navController = navController)
 
 		}
 		//// Home Screen ////

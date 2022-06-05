@@ -8,7 +8,11 @@ import com.kavrin.borutoapp.data.local.dao.HeroRemoteKeyDao
 import com.kavrin.borutoapp.domain.model.Hero
 import com.kavrin.borutoapp.domain.model.HeroRemoteKey
 
-@Database(entities = [Hero::class, HeroRemoteKey::class], version = 1, exportSchema = true)
+@Database(
+	entities = [Hero::class, HeroRemoteKey::class],
+	version = 1,
+	exportSchema = true
+)
 @TypeConverters(DatabaseConverter::class)
 abstract class BorutoDatabase : RoomDatabase() {
 
