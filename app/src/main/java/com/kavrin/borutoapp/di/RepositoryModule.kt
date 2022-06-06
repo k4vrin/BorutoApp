@@ -27,7 +27,9 @@ object RepositoryModule {
 
 	@Provides
 	@Singleton
-	fun provideUseCases(repository: Repository): UseCases {
+	fun provideUseCases(
+		repository: Repository
+	): UseCases {
 		return UseCases(
 			saveOnBoardingUseCase = SaveOnBoardingUseCase(repository = repository),
 			readOnBoardingUseCase = ReadOnBoardingUseCase(repository = repository)

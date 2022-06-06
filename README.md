@@ -117,4 +117,13 @@ A type-safe HTTP client for Android and Java
 
 _[See More](https://square.github.io/retrofit/)_
 
+In Retrofit you configure which converter is used for the data serialization.
+Typically to serialize and deserialize objects to and from JSON you use an open-source Java library — Gson.
+Also if you need, you can add custom converters to Retrofit to process XML or other protocols.
 
+For making HTTP requests Retrofit uses the OkHttp library.
+OkHttp is a pure HTTP/SPDY client responsible for any low-level network operations,
+caching, requests and responses manipulation. In contrast, Retrofit is a high-level REST abstraction build on top of OkHttp.
+Retrofit is strongly coupled with OkHttp and makes intensive use of it.
+
+_[How to handle RESTful web Services using Retrofit, OkHttp, Gson, Glide and Coroutines](https://www.freecodecamp.org/news/kriptofolio-app-series-part-5/)_
