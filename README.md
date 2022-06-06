@@ -60,7 +60,7 @@ _[See More](https://developer.android.com/kotlin/flow/stateflow-and-sharedflow#s
 The `shareIn` function returns a `SharedFlow`, a hot flow that emits values to all consumers that collect from it.
 A `SharedFlow` is a highly-configurable generalization of `StateFlow`.
 
-_[https://developer.android.com/kotlin/flow/stateflow-and-sharedflow#sharedflow](https://developer.android.com/kotlin/flow/stateflow-and-sharedflow#stateflow)_
+_[See More](https://developer.android.com/kotlin/flow/stateflow-and-sharedflow#sharedflow)_
 
 
 ### Accompanist
@@ -94,13 +94,6 @@ Implementing dependency injection provides you with the following advantages:
 
 _[See More](https://developer.android.com/training/dependency-injection)_
 
-## DataStore
-
-Jetpack DataStore is a data storage solution that allows you to store key-value pairs or typed objects with protocol buffers.
-DataStore uses Kotlin coroutines and Flow to store data asynchronously, consistently, and transactionally.
-
-_[See More](https://developer.android.com/topic/libraries/architecture/datastore)_
-
 ### Hilt
 Hilt is a dependency injection library for Android that reduces the boilerplate of doing manual dependency injection in your project.
 Hilt provides a standard way to use DI in your application by providing containers for every Android class in your project and managing their lifecycles automatically.
@@ -109,5 +102,13 @@ Hilt is built on top of the popular DI library Dagger to benefit from the compil
 _[See More](https://developer.android.com/training/dependency-injection/hilt-android)_
 
 _[Use Hilt with other Jetpack libraries](https://developer.android.com/training/dependency-injection/hilt-jetpack)_
+
+
+## DataStore
+
+Jetpack DataStore is a data storage solution that allows you to store key-value pairs or typed objects with protocol buffers.
+DataStore uses Kotlin coroutines and Flow to store data asynchronously, consistently, and transactionally.
+
+_[See More](https://developer.android.com/topic/libraries/architecture/datastore)_
 
 
