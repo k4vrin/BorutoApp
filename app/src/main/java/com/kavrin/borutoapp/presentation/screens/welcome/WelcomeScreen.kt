@@ -17,17 +17,22 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.google.accompanist.pager.*
 import com.kavrin.borutoapp.R
 import com.kavrin.borutoapp.domain.model.OnBoardingPage
+import com.kavrin.borutoapp.navigation.Screen
 import com.kavrin.borutoapp.ui.theme.*
 import com.kavrin.borutoapp.util.Constants.LAST_ON_BOARDING_PAGE
 import com.kavrin.borutoapp.util.Constants.ON_BOARDING_PAGE_COUNT
 
 @ExperimentalPagerApi
 @Composable
-fun WelcomeScreen(navController: NavHostController) {
+fun WelcomeScreen(
+	navController: NavHostController,
+	welcomeViewModel: WelcomeViewModel = hiltViewModel()
+) {
 	val pages = listOf(
 		OnBoardingPage.First,
 		OnBoardingPage.Second,
@@ -68,10 +73,14 @@ fun WelcomeScreen(navController: NavHostController) {
 
 		//// Finish Button ////
 		FinishButton(
+			pagerState = pagerState,
 			modifier = Modifier
-				.weight(1f),
-			pagerState = pagerState
-		) {}
+				.weight(1f)
+		) {
+			navController.popBackStack()
+			navController.navigate(route = Screen.Home.route)
+			welcomeViewModel.saveOnBoardingState(completed = true)
+		}
 
 	}
 }
@@ -124,8 +133,8 @@ fun PagerScreen(onBoardingPage: OnBoardingPage) {
 @ExperimentalPagerApi
 @Composable
 fun FinishButton(
-	modifier: Modifier = Modifier,
 	pagerState: PagerState,
+	modifier: Modifier = Modifier,
 	onClick: () -> Unit,
 ) {
 	Row(

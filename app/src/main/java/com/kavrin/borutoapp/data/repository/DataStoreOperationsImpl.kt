@@ -1,4 +1,4 @@
-package com.kavrin.borutoapp.data.pref
+package com.kavrin.borutoapp.data.repository
 
 import android.content.Context
 import androidx.datastore.core.DataStore
@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import java.io.IOException
 
-// Initializing preferencesDataStore
+// Create preferencesDataStore
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = PREFERENCES_NAME)
 
 class DataStoreOperationsImpl(context: Context) : DataStoreOperations {
@@ -25,7 +25,7 @@ class DataStoreOperationsImpl(context: Context) : DataStoreOperations {
 		val onBoardingKey = booleanPreferencesKey(name = PREFERENCES_KEY)
 	}
 
-	// Create a instance of DataStore
+	// Create an instance of DataStore
 	private val dataStore = context.dataStore
 
 	/**

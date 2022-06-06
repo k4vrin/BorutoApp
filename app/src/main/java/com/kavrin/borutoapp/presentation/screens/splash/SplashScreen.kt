@@ -8,9 +8,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
@@ -19,13 +17,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.kavrin.borutoapp.R
+import com.kavrin.borutoapp.navigation.Screen
 import com.kavrin.borutoapp.ui.theme.Purple500
 import com.kavrin.borutoapp.ui.theme.Purple700
 
 @Composable
-fun SplashScreen(navController: NavHostController) {
+fun SplashScreen(
+	navController: NavHostController,
+	splashViewModel: SplashViewModel = hiltViewModel(),
+) {
+
+	val onBoardingCompletes by splashViewModel.onBoardingCompleted.collectAsState()
 
 	val rotateDegrees = remember { Animatable(initialValue = 0f) }
 	LaunchedEffect(key1 = true) {
@@ -36,6 +41,12 @@ fun SplashScreen(navController: NavHostController) {
 				delayMillis = 200
 			)
 		)
+		// After animation ends we are gonna navigate
+		navController.popBackStack()
+		if (onBoardingCompletes)
+			navController.navigate(route = Screen.Home.route)
+		else
+			navController.navigate(route = Screen.Welcome.route)
 	}
 	Splash(degrees = rotateDegrees.value)
 }
@@ -53,7 +64,7 @@ fun Splash(degrees: Float) {
 		) {
 			Image(
 				modifier = Modifier
-				    .rotate(degrees = degrees),
+					.rotate(degrees = degrees),
 				painter = painterResource(id = R.drawable.logo),
 				contentDescription = stringResource(R.string.app_logo)
 			)
