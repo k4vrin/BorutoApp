@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.google.accompanist.pager.ExperimentalPagerApi
+import com.kavrin.borutoapp.presentation.screens.home.HomeScreen
 import com.kavrin.borutoapp.presentation.screens.splash.SplashScreen
 import com.kavrin.borutoapp.presentation.screens.welcome.WelcomeScreen
 import com.kavrin.borutoapp.util.Constants.DETAILS_ARGUMENT_KEY
@@ -25,7 +26,7 @@ fun SetupNavGraph(navController: NavHostController) {
 	// Define NavHost(start destination)
 	NavHost(
 		navController = navController,
-		startDestination = Screen.Welcome.route
+		startDestination = Screen.Splash.route
 		// Define all destination
 	) {
 		//// Splash Screen ////
@@ -41,17 +42,22 @@ fun SetupNavGraph(navController: NavHostController) {
 		}
 		//// Home Screen ////
 		composable(
-			route = Screen.Home.route,
+			route = Screen.Home.route
+		) {
+			// Define actual composable screen
+			HomeScreen(
+				navController = navController
+			)
+
+		}
+		//// Details Screen ////
+		composable(
+			route = Screen.Detail.route,
 			// Define required arg
 			arguments = listOf(navArgument(DETAILS_ARGUMENT_KEY) {
 				type = NavType.IntType
 			})
 		) {
-			// Define actual composable screen
-
-		}
-		//// Details Screen ////
-		composable(route = Screen.Detail.route) {
 			// Define actual composable screen
 
 		}
