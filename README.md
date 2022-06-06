@@ -111,4 +111,10 @@ DataStore uses Kotlin coroutines and Flow to store data asynchronously, consiste
 
 _[See More](https://developer.android.com/topic/libraries/architecture/datastore)_
 
+## Retrofit
+
+A type-safe HTTP client for Android and Java
+
+_[See More](https://square.github.io/retrofit/)_
+
 
