@@ -76,7 +76,49 @@ A library that provides utilities for building paginated layouts in Jetpack Comp
 _[See More](https://github.com/google/accompanist/tree/main/pager)_
 
 
+## Paging
+
+The Paging library helps you load and display pages of data from a larger dataset from local storage or over network.
+This approach allows your app to use both network bandwidth and system resources more efficiently.
+The components of the Paging library are designed to fit into the recommended Android app architecture,
+integrate cleanly with other Jetpack components, and provide first-class Kotlin support.
+
+_[See More](https://developer.android.com/topic/libraries/architecture/paging/v3-overview)_
+
+### Library architecture
+
+The Paging library integrates directly into the recommended Android app architecture. The library's components operate in three layers of your app:
+
+- The repository layer
+- The ViewModel layer
+- The UI layer
+
+#### Repository layer
+
+The primary Paging library component in the repository layer is PagingSource.
+Each PagingSource object defines a source of data and how to retrieve data from that source.
+A PagingSource object can load data from any single source, including network sources and local databases.
+
+Another Paging library component that you might use is RemoteMediator.
+A RemoteMediator object handles paging from a layered data source, such as a network data source with a local database cache.
+
+#### ViewModel layer
+
+The Pager component provides a public API for constructing instances of PagingData that are exposed in reactive streams,
+based on a PagingSource object and a PagingConfig configuration object.
+
+The component that connects the ViewModel layer to the UI is PagingData.
+A PagingData object is a container for a snapshot of paginated data. It queries a PagingSource object and stores the result.
+
+#### UI layer
+
+The primary Paging library component in the UI layer is PagingDataAdapter, a RecyclerView adapter that handles paginated data (collectAsLazyPagingItems() for compose).
+
+Alternatively, you can use the included AsyncPagingDataDiffer component to build your own custom adapter.
+
+
 ## Room
+
 The Room persistence library provides an abstraction layer over SQLite to allow for more robust database access while harnessing the full power of SQLite.
 
 _[See More](https://developer.android.com/jetpack/androidx/releases/room)_
