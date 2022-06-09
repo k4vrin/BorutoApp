@@ -5,6 +5,7 @@ import com.kavrin.borutoapp.data.repository.DataStoreOperationsImpl
 import com.kavrin.borutoapp.data.repository.Repository
 import com.kavrin.borutoapp.domain.repository.DataStoreOperations
 import com.kavrin.borutoapp.domain.use_cases.UseCases
+import com.kavrin.borutoapp.domain.use_cases.get_all_heroes.GetAllHeroesUseCase
 import com.kavrin.borutoapp.domain.use_cases.read_onboarding.ReadOnBoardingUseCase
 import com.kavrin.borutoapp.domain.use_cases.save_onboarding.SaveOnBoardingUseCase
 import dagger.Module
@@ -32,7 +33,8 @@ object RepositoryModule {
 	): UseCases {
 		return UseCases(
 			saveOnBoardingUseCase = SaveOnBoardingUseCase(repository = repository),
-			readOnBoardingUseCase = ReadOnBoardingUseCase(repository = repository)
+			readOnBoardingUseCase = ReadOnBoardingUseCase(repository = repository),
+			getAllHeroesUseCase = GetAllHeroesUseCase(repository = repository)
 		)
 	}
 }
