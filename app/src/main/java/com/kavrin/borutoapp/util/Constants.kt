@@ -22,4 +22,8 @@ object Constants {
 
     const val ITEMS_PER_PAGE = 3
 
+    const val FILLED_STARS_KEY = "filledStars"
+    const val HALF_FILLED_STARS_KEY = "halfFilledStars"
+    const val EMPTY_STARS_KEY = "emptyStars"
+
 }
