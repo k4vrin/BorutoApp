@@ -1,6 +1,5 @@
 package com.kavrin.borutoapp.presentation.common
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -22,6 +21,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.items
 import coil.annotation.ExperimentalCoilApi
@@ -30,6 +30,7 @@ import com.kavrin.borutoapp.R
 import com.kavrin.borutoapp.domain.model.Hero
 import com.kavrin.borutoapp.navigation.Screen
 import com.kavrin.borutoapp.presentation.components.RatingWidget
+import com.kavrin.borutoapp.presentation.components.ShimmerEffect
 import com.kavrin.borutoapp.ui.theme.*
 import com.kavrin.borutoapp.util.Constants.BASE_URL
 
@@ -37,28 +38,55 @@ import com.kavrin.borutoapp.util.Constants.BASE_URL
 @Composable
 fun ListContent(
 	heroes: LazyPagingItems<Hero>,
-	navController: NavHostController
+	navController: NavHostController,
 ) {
-	Log.d("ListContent", "ListContent: ${heroes.loadState}")
-	LazyColumn(
-		contentPadding = PaddingValues(all = SMALL_PADDING),
-		verticalArrangement = Arrangement.spacedBy(SMALL_PADDING)
-	) {
-		items(
-			items = heroes,
-			key = { hero ->
-				hero.id
-			}
-		) { hero ->
-			hero?.let {
-				HeroItem(
-					hero = hero,
-					navController = navController
-				)
+	val result = handlePagingResult(heroes = heroes)
+
+	if (result) {
+		LazyColumn(
+			contentPadding = PaddingValues(all = SMALL_PADDING),
+			verticalArrangement = Arrangement.spacedBy(SMALL_PADDING)
+		) {
+			items(
+				items = heroes,
+				key = { hero ->
+					hero.id
+				}
+			) { hero ->
+				hero?.let {
+					HeroItem(
+						hero = hero,
+						navController = navController
+					)
+				}
 			}
 		}
+
 	}
 
+}
+
+@Composable
+fun handlePagingResult(
+	heroes: LazyPagingItems<Hero>,
+): Boolean {
+	heroes.apply {
+		val error = when {
+			loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
+			loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
+			loadState.append is LoadState.Error -> loadState.append as LoadState.Error
+			else -> null
+		}
+		return when {
+			// We want to display a Shimmer Effect only when initial load is triggered
+			loadState.refresh is LoadState.Loading -> {
+				ShimmerEffect()
+				false
+			}
+			error != null -> false
+			else -> true
+		}
+	}
 }
 
 
@@ -66,7 +94,7 @@ fun ListContent(
 @Composable
 fun HeroItem(
 	hero: Hero,
-	navController: NavHostController
+	navController: NavHostController,
 ) {
 	val painter = rememberImagePainter(data = "$BASE_URL${hero.image}") {
 		placeholder(drawableResId = R.drawable.placeholder)
@@ -88,7 +116,7 @@ fun HeroItem(
 		) {
 			Image(
 				modifier = Modifier
-				    .fillMaxSize(),
+					.fillMaxSize(),
 				painter = painter,
 				contentDescription = stringResource(R.string.hero_image),
 				contentScale = ContentScale.Crop
@@ -131,13 +159,13 @@ fun HeroItem(
 				//// Rating Widget ////
 				Row(
 					modifier = Modifier
-					    .padding(top = SMALL_PADDING),
+						.padding(top = SMALL_PADDING),
 					verticalAlignment = Alignment.CenterVertically
 				) {
 
 					RatingWidget(
 						modifier = Modifier
-						    .padding(end = SMALL_PADDING),
+							.padding(end = SMALL_PADDING),
 						rating = hero.rating
 					)
 
