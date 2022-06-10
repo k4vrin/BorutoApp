@@ -10,5 +10,6 @@ class HomeViewModel @Inject constructor(
     useCases: UseCases
 ) : ViewModel() {
 
+	// We don't use cachedIn here because we cache the data in the local database (in RemoteMediator)
 	val getAllHeroes = useCases.getAllHeroesUseCase()
 }
