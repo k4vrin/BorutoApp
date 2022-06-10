@@ -1,14 +1,14 @@
 package com.kavrin.borutoapp.presentation.screens.home
 
-import androidx.compose.foundation.layout.padding
+import android.annotation.SuppressLint
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.kavrin.borutoapp.presentation.components.RatingWidget
+import com.kavrin.borutoapp.presentation.common.ListContent
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun HomeScreen(
 	navController: NavHostController,
@@ -20,12 +20,12 @@ fun HomeScreen(
 	Scaffold(
 		topBar = {
 			HomeTopBar(onSearchClicked = {})
+		},
+		content = {
+			ListContent(
+				heroes = allHeroes,
+				navController = navController
+			)
 		}
-	) {
-		RatingWidget(
-			modifier = Modifier
-				.padding(it),
-			rating = -1.6
-		)
-	}
+	)
 }
