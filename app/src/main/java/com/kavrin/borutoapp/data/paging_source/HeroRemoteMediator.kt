@@ -6,6 +6,10 @@ import com.kavrin.borutoapp.data.local.BorutoDatabase
 import com.kavrin.borutoapp.data.remote.BorutoApi
 import com.kavrin.borutoapp.domain.model.Hero
 import com.kavrin.borutoapp.domain.model.HeroRemoteKeys
+import com.kavrin.borutoapp.util.Constants.FIRST_REQUEST_DEFAULT
+import com.kavrin.borutoapp.util.Constants.ONE_MINUTE_IN_SECONDS
+import com.kavrin.borutoapp.util.Constants.ONE_SECOND_IN_MILLIS
+import com.kavrin.borutoapp.util.Constants.TWENTY_FOUR_HOURS_IN_MINUTES
 import javax.inject.Inject
 
 @ExperimentalPagingApi
@@ -13,6 +17,26 @@ class HeroRemoteMediator @Inject constructor(
 	private val borutoApi: BorutoApi,
 	private val borutoDatabase: BorutoDatabase,
 ) : RemoteMediator<Int, Hero>() {
+
+	/**
+	 * Initialize
+	 *
+	 * @return
+	 *
+	 * Checking whether cached data is out of date and decide whether to trigger a remote refresh
+	 */
+	override suspend fun initialize(): InitializeAction {
+		val currentTime = System.currentTimeMillis()
+		val lastUpdated = heroRemoteKeysDao.getRemoteKeys(heroId = 1)?.lastUpdated ?: FIRST_REQUEST_DEFAULT
+		val cacheTimeout = TWENTY_FOUR_HOURS_IN_MINUTES
+
+		val diffInMinutes = (currentTime - lastUpdated) / ONE_SECOND_IN_MILLIS / ONE_MINUTE_IN_SECONDS
+		return if (diffInMinutes.toInt() <= cacheTimeout)
+			InitializeAction.SKIP_INITIAL_REFRESH
+		else
+			InitializeAction.LAUNCH_INITIAL_REFRESH
+
+	}
 
 	private val heroDao = borutoDatabase.heroDao()
 	private val heroRemoteKeysDao = borutoDatabase.heroRemoteKeysDao()
@@ -61,7 +85,8 @@ class HeroRemoteMediator @Inject constructor(
 						HeroRemoteKeys(
 							id = hero.id,
 							prevPage = prevPage,
-							nextPage = nextPage
+							nextPage = nextPage,
+							lastUpdated = response.lastUpdated
 						)
 					}
 
@@ -107,6 +132,12 @@ class HeroRemoteMediator @Inject constructor(
 				heroRemoteKeysDao.getRemoteKeys(heroId = hero.id)
 			}
 	}
+
+//	private fun parseMillis(millis: Long): String {
+//		val data = Date(millis)
+//		val formatter = SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.ROOT)
+//		return formatter.format(data)
+//	}
 
 
 }

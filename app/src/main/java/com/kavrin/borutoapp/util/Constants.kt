@@ -26,4 +26,9 @@ object Constants {
     const val HALF_FILLED_STARS_KEY = "halfFilledStars"
     const val EMPTY_STARS_KEY = "emptyStars"
 
+    const val FIRST_REQUEST_DEFAULT = 0L
+    const val ONE_SECOND_IN_MILLIS = 1000
+    const val ONE_MINUTE_IN_SECONDS = 60
+    const val TWENTY_FOUR_HOURS_IN_MINUTES = 1440
+
 }

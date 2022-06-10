@@ -9,7 +9,8 @@ data class HeroRemoteKeys(
 	@PrimaryKey(autoGenerate = false)
 	val id: Int,
 	val prevPage: Int?,
-	val nextPage: Int?
+	val nextPage: Int?,
+	val lastUpdated: Long?
 )
 
 /**
