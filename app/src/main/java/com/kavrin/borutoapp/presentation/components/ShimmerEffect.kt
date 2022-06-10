@@ -91,7 +91,7 @@ fun ShimmerItem(alpha: Float) {
 					Surface(
 						modifier = Modifier
 							.alpha(alpha)
-							.size(ABOUT_PLACEHOLDER_HEIGHT),
+							.size(RATING_PLACEHOLDER_HEIGHT),
 						color = if (isSystemInDarkTheme()) ShimmerDarkGray else ShimmerMediumGray,
 						shape = RoundedCornerShape(size = SMALL_PADDING)
 					) {}
