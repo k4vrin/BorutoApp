@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import coil.annotation.ExperimentalCoilApi
 import com.google.accompanist.pager.ExperimentalPagerApi
+import com.kavrin.borutoapp.presentation.screens.details.DetailsScreen
 import com.kavrin.borutoapp.presentation.screens.home.HomeScreen
 import com.kavrin.borutoapp.presentation.screens.search.SearchScreen
 import com.kavrin.borutoapp.presentation.screens.splash.SplashScreen
@@ -64,7 +65,7 @@ fun SetupNavGraph(navController: NavHostController) {
 			})
 		) {
 			// Define actual composable screen
-
+			DetailsScreen(navController = navController)
 		}
 	}
 }
