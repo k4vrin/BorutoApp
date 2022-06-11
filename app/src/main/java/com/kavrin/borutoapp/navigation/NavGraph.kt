@@ -44,13 +44,9 @@ fun SetupNavGraph(navController: NavHostController) {
 
 		}
 		//// Home Screen ////
-		composable(
-			route = Screen.Home.route
-		) {
+		composable(route = Screen.Home.route) {
 			// Define actual composable screen
-			HomeScreen(
-				navController = navController
-			)
+			HomeScreen(navController = navController)
 
 		}
 		//// Search Screen ////

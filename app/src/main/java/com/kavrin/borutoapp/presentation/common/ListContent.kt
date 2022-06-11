@@ -55,7 +55,7 @@ fun ListContent(
 			) { hero ->
 				hero?.let {
 					HeroItem(
-						hero = hero,
+						hero = it,
 						navController = navController
 					)
 				}
@@ -85,6 +85,10 @@ fun handlePagingResult(
 			}
 			error != null -> {
 				EmptyScreen(error = error)
+				false
+			}
+			heroes.itemCount < 1 -> {
+				EmptyScreen()
 				false
 			}
 			else -> true

@@ -41,7 +41,7 @@ fun SearchWidget(
 	text: String,
 	onTextChange: (String) -> Unit,
 	onSearchClicked: (String) -> Unit,
-	onCloseClicked: () -> Unit,
+	onCloseClicked: () -> Unit
 ) {
 	Surface(
 		modifier = Modifier
@@ -50,6 +50,7 @@ fun SearchWidget(
 		elevation = AppBarDefaults.TopAppBarElevation,
 		color = MaterialTheme.colors.topBarBgColor
 	) {
+
 		TextField(
 			modifier = Modifier
 				.fillMaxWidth(),
@@ -107,7 +108,9 @@ fun SearchWidget(
 			),
 			colors = TextFieldDefaults.textFieldColors(
 				backgroundColor = Color.Transparent,
-				cursorColor = MaterialTheme.colors.topBarContentColor
+				cursorColor = MaterialTheme.colors.topBarContentColor,
+				focusedIndicatorColor = Color.Transparent,
+				unfocusedIndicatorColor = Color.Transparent
 			)
 		)
 
