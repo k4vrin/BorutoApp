@@ -17,7 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.kavrin.borutoapp.R
 import com.kavrin.borutoapp.ui.theme.EXTRA_SMALL_PADDING
 import com.kavrin.borutoapp.ui.theme.INFO_ICON_SIZE
-import com.kavrin.borutoapp.ui.theme.onBoardingTitleColor
+import com.kavrin.borutoapp.ui.theme.titleColor
 
 @Composable
 fun InfoBox(
@@ -74,6 +74,6 @@ fun InfoBoxPre() {
 		iconColor = MaterialTheme.colors.primary,
 		bigText = "95",
 		smallText = "Power",
-		textColor = MaterialTheme.colors.onBoardingTitleColor
+		textColor = MaterialTheme.colors.titleColor
 	)
 }

@@ -24,7 +24,6 @@ import androidx.navigation.compose.rememberNavController
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.items
-import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.kavrin.borutoapp.R
 import com.kavrin.borutoapp.domain.model.Hero
@@ -34,7 +33,6 @@ import com.kavrin.borutoapp.presentation.components.ShimmerEffect
 import com.kavrin.borutoapp.ui.theme.*
 import com.kavrin.borutoapp.util.Constants.BASE_URL
 
-@ExperimentalCoilApi
 @Composable
 fun ListContent(
 	heroes: LazyPagingItems<Hero>,
@@ -97,7 +95,6 @@ fun handlePagingResult(
 }
 
 
-@ExperimentalCoilApi
 @Composable
 fun HeroItem(
 	hero: Hero,
@@ -188,7 +185,6 @@ fun HeroItem(
 	}
 }
 
-@ExperimentalCoilApi
 @Preview
 @Composable
 fun HeroItemPrev() {

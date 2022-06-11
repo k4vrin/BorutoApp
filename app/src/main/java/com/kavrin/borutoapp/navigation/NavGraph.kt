@@ -6,8 +6,6 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import coil.annotation.ExperimentalCoilApi
-import com.google.accompanist.pager.ExperimentalPagerApi
 import com.kavrin.borutoapp.presentation.screens.details.DetailsScreen
 import com.kavrin.borutoapp.presentation.screens.home.HomeScreen
 import com.kavrin.borutoapp.presentation.screens.search.SearchScreen
@@ -23,8 +21,7 @@ import com.kavrin.borutoapp.util.Constants.DETAILS_ARGUMENT_KEY
  * Setup navGraph with Screens to define all destinations that app use
  * Should be called from main activity
  */
-@ExperimentalCoilApi
-@ExperimentalPagerApi
+
 @Composable
 fun SetupNavGraph(navController: NavHostController) {
 	// Define NavHost(start destination)

@@ -5,14 +5,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import coil.annotation.ExperimentalCoilApi
-import com.google.accompanist.pager.ExperimentalPagerApi
 import com.kavrin.borutoapp.navigation.SetupNavGraph
 import com.kavrin.borutoapp.ui.theme.BorutoAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
-@ExperimentalCoilApi
-@ExperimentalPagerApi
+
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 

@@ -7,10 +7,8 @@ import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.paging.compose.collectAsLazyPagingItems
-import coil.annotation.ExperimentalCoilApi
 import com.kavrin.borutoapp.presentation.common.ListContent
 
-@ExperimentalCoilApi
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun SearchScreen(

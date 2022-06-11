@@ -27,7 +27,6 @@ import com.kavrin.borutoapp.ui.theme.*
 import com.kavrin.borutoapp.util.Constants.LAST_ON_BOARDING_PAGE
 import com.kavrin.borutoapp.util.Constants.ON_BOARDING_PAGE_COUNT
 
-@ExperimentalPagerApi
 @Composable
 fun WelcomeScreen(
 	navController: NavHostController,
@@ -107,7 +106,7 @@ fun PagerScreen(onBoardingPage: OnBoardingPage) {
 			modifier = Modifier
 				.fillMaxWidth(),
 			text = onBoardingPage.title,
-			color = MaterialTheme.colors.onBoardingTitleColor,
+			color = MaterialTheme.colors.titleColor,
 			fontSize = MaterialTheme.typography.h4.fontSize,
 			fontWeight = FontWeight.Bold,
 			textAlign = TextAlign.Center

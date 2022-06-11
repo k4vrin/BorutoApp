@@ -35,6 +35,12 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
         useIR = true
+        freeCompilerArgs += [
+                // Avoid having to stutter experimental annotations all over the codebase
+                "-opt-in=androidx.compose.material.ExperimentalMaterialApi",
+                "-opt-in=coil.annotation.ExperimentalCoilApi",
+                "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi"
+        ]
     }
     buildFeatures {
         compose true
