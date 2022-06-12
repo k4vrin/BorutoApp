@@ -43,9 +43,7 @@ fun InfoBox(
 		Spacer(modifier = Modifier.width(EXTRA_SMALL_PADDING))
 
 		//// Text Container ////
-		Column(
-			horizontalAlignment = Alignment.CenterHorizontally
-		) {
+		Column {
 			//// Big Text ////
 			Text(
 				text = bigText,
