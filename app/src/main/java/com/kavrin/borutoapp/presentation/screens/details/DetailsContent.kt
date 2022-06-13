@@ -4,6 +4,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
+import androidx.compose.material.BottomSheetValue.Collapsed
+import androidx.compose.material.BottomSheetValue.Expanded
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
@@ -26,6 +28,7 @@ import androidx.compose.ui.layout.ContentScale
 import coil.compose.rememberImagePainter
 import com.kavrin.borutoapp.util.Constants.ABOUT_TEXT_MAX_LINES
 import com.kavrin.borutoapp.util.Constants.BASE_URL
+import com.kavrin.borutoapp.util.Constants.MIN_BACKGROUND_IMAGE_HEIGHT
 
 
 @Composable
@@ -34,12 +37,14 @@ fun DetailsContent(
 	selectedHero: Hero?,
 ) {
 	val bottomSheetState = rememberBottomSheetState(
-		initialValue = BottomSheetValue.Expanded
+		initialValue = Expanded
 	)
 
 	val scaffoldState = rememberBottomSheetScaffoldState(
 		bottomSheetState = bottomSheetState
 	)
+
+	val currentSheetFraction = scaffoldState.currentSheetFraction
 
 	BottomSheetScaffold(
 		scaffoldState = scaffoldState,
@@ -51,6 +56,7 @@ fun DetailsContent(
 			selectedHero?.let { hero ->
 				BackgroundContent(
 					heroImage = hero.image,
+					imageFraction = currentSheetFraction,
 					onCloseClicked = {
 						navController.popBackStack()
 					}
@@ -214,7 +220,7 @@ fun BackgroundContent(
 		Image(
 			modifier = Modifier
 				.fillMaxWidth()
-				.fillMaxHeight(fraction = imageFraction)
+				.fillMaxHeight(fraction = imageFraction + MIN_BACKGROUND_IMAGE_HEIGHT)
 				.align(Alignment.TopStart),
 			painter = painter,
 			contentDescription = stringResource(id = R.string.hero_image),
@@ -243,6 +249,26 @@ fun BackgroundContent(
 
 		
 
+	}
+}
+
+/**
+ * Current sheet fraction
+ *
+ * Should return 0 when bottomSheet is Expanded and 1 when it is Collapsed
+ */
+val BottomSheetScaffoldState.currentSheetFraction: Float
+get() {
+	val fraction = bottomSheetState.progress.fraction
+	val targetValue = bottomSheetState.targetValue
+	val currentValue = bottomSheetState.currentValue
+
+	return when {
+		currentValue == Collapsed && targetValue == Collapsed -> 1f
+		currentValue == Expanded && targetValue == Expanded -> 0f
+		currentValue == Collapsed && targetValue == Expanded -> 1f - fraction
+		currentValue == Expanded && targetValue == Collapsed -> 0f + fraction
+		else -> fraction
 	}
 }
 
