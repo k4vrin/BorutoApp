@@ -39,7 +39,8 @@ android {
                 // Avoid having to stutter experimental annotations all over the codebase
                 "-opt-in=androidx.compose.material.ExperimentalMaterialApi",
                 "-opt-in=coil.annotation.ExperimentalCoilApi",
-                "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi"
+                "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi",
+                "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
         ]
     }
     buildFeatures {
