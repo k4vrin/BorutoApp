@@ -1,5 +1,6 @@
 package com.kavrin.borutoapp.presentation.screens.details
 
+import android.graphics.Color.parseColor
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -11,7 +12,6 @@ import androidx.compose.material.BottomSheetValue.Collapsed
 import androidx.compose.material.BottomSheetValue.Expanded
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -27,29 +27,55 @@ import com.kavrin.borutoapp.presentation.components.InfoBox
 import com.kavrin.borutoapp.presentation.components.OrderedList
 import com.kavrin.borutoapp.ui.theme.*
 import androidx.compose.material.rememberBottomSheetScaffoldState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.layout.ContentScale
 import coil.compose.rememberImagePainter
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.kavrin.borutoapp.util.Constants.ABOUT_TEXT_MAX_LINES
 import com.kavrin.borutoapp.util.Constants.BASE_URL
+import com.kavrin.borutoapp.util.Constants.DARK_VIBRANT
 import com.kavrin.borutoapp.util.Constants.MIN_BACKGROUND_IMAGE_HEIGHT
+import com.kavrin.borutoapp.util.Constants.ON_DARK_VIBRANT
+import com.kavrin.borutoapp.util.Constants.VIBRANT
 
 
 @Composable
 fun DetailsContent(
 	navController: NavHostController,
 	selectedHero: Hero?,
+	colorPalette: Map<String, String>,
 ) {
+
+	//// Palette State ////
+	var vibrant by remember { mutableStateOf("#000000") }
+	var darkVibrant by remember { mutableStateOf("#000000") }
+	var onDarkVibrant by remember { mutableStateOf("#FFFFFF") }
+
+	LaunchedEffect(key1 = selectedHero) {
+		vibrant = colorPalette[VIBRANT]!!
+		darkVibrant = colorPalette[DARK_VIBRANT]!!
+		onDarkVibrant = colorPalette[ON_DARK_VIBRANT]!!
+	}
+
+	val systemUiController = rememberSystemUiController()
+	systemUiController.setStatusBarColor(
+		color = Color(parseColor(darkVibrant))
+	)
+
+	//// BottomSheet State ////
 	val bottomSheetState = rememberBottomSheetState(
 		initialValue = Expanded
 	)
 
+	//// Scaffold BottomSheet State ////
 	val scaffoldState = rememberBottomSheetScaffoldState(
 		bottomSheetState = bottomSheetState
 	)
 
+	//// Current Sheet Fraction ////
 	val currentSheetFraction = scaffoldState.currentSheetFraction
 
+	//// Animated Sheet Radius ////
 	val radiusAnim by animateDpAsState(
 		targetValue = if (currentSheetFraction == 1f)
 			EXTRA_LARGE_PADDING else EXPANDED_RADIUS_LEVEL
@@ -63,13 +89,21 @@ fun DetailsContent(
 		scaffoldState = scaffoldState,
 		sheetPeekHeight = MIN_SHEET_HEIGHT,
 		sheetContent = {
-			selectedHero?.let { BottomSheetContent(selectedHero = it) }
+			selectedHero?.let {
+				BottomSheetContent(
+					selectedHero = it,
+					infoBoxIconColor = Color(parseColor(vibrant)),
+					sheetBackgroundColor = Color(parseColor(darkVibrant)),
+					contentColor = Color(parseColor(onDarkVibrant))
+				)
+			}
 		},
 		content = {
 			selectedHero?.let { hero ->
 				BackgroundContent(
 					heroImage = hero.image,
 					imageFraction = currentSheetFraction,
+					backgroundColor = Color(parseColor(darkVibrant)),
 					onCloseClicked = {
 						navController.popBackStack()
 					}
