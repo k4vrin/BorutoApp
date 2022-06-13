@@ -1,8 +1,11 @@
 package com.kavrin.borutoapp.presentation.screens.details
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,7 +22,10 @@ import com.kavrin.borutoapp.presentation.components.InfoBox
 import com.kavrin.borutoapp.presentation.components.OrderedList
 import com.kavrin.borutoapp.ui.theme.*
 import androidx.compose.material.rememberBottomSheetScaffoldState
+import androidx.compose.ui.layout.ContentScale
+import coil.compose.rememberImagePainter
 import com.kavrin.borutoapp.util.Constants.ABOUT_TEXT_MAX_LINES
+import com.kavrin.borutoapp.util.Constants.BASE_URL
 
 
 @Composable
@@ -41,7 +47,16 @@ fun DetailsContent(
 		sheetContent = {
 			selectedHero?.let { BottomSheetContent(selectedHero = it) }
 		},
-		content = {}
+		content = {
+			selectedHero?.let { hero ->
+				BackgroundContent(
+					heroImage = hero.image,
+					onCloseClicked = {
+						navController.popBackStack()
+					}
+				)
+			}
+		}
 	)
 
 }
@@ -175,6 +190,59 @@ fun BottomSheetContent(
 			)
 
 		}
+	}
+}
+
+@Composable
+fun BackgroundContent(
+	heroImage: String,
+	imageFraction: Float = 1f,
+	backgroundColor: Color = MaterialTheme.colors.surface,
+	onCloseClicked: () -> Unit
+) {
+	val imageUrl = "$BASE_URL$heroImage"
+	val painter = rememberImagePainter(imageUrl) {
+		error(R.drawable.placeholder)
+	}
+	//// Image and Close Icon Container ////
+	Box(
+		modifier = Modifier
+			.fillMaxSize()
+			.background(color = backgroundColor)
+	) {
+		//// Hero Image ////
+		Image(
+			modifier = Modifier
+				.fillMaxWidth()
+				.fillMaxHeight(fraction = imageFraction)
+				.align(Alignment.TopStart),
+			painter = painter,
+			contentDescription = stringResource(id = R.string.hero_image),
+			contentScale = ContentScale.Crop
+		)
+		//// Close Icon ////
+		Row(
+			modifier = Modifier
+			    .fillMaxWidth(),
+			horizontalArrangement = Arrangement.End
+		) {
+			IconButton(
+				modifier = Modifier
+				    .padding(all = SMALL_PADDING),
+				onClick = { onCloseClicked() }
+			) {
+				Icon(
+					modifier = Modifier
+					    .size(INFO_ICON_SIZE),
+					imageVector = Icons.Default.Close,
+					contentDescription = stringResource(id = R.string.close_icon),
+					tint = Color.White
+				)
+			}
+		}
+
+		
+
 	}
 }
 
