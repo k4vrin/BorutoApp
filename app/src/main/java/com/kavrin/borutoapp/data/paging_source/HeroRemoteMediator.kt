@@ -12,7 +12,6 @@ import com.kavrin.borutoapp.util.Constants.ONE_SECOND_IN_MILLIS
 import com.kavrin.borutoapp.util.Constants.TWENTY_FOUR_HOURS_IN_MINUTES
 import javax.inject.Inject
 
-@ExperimentalPagingApi
 class HeroRemoteMediator @Inject constructor(
 	private val borutoApi: BorutoApi,
 	private val borutoDatabase: BorutoDatabase,

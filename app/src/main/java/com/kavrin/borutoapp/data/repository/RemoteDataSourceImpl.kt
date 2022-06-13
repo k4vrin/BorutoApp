@@ -1,6 +1,5 @@
 package com.kavrin.borutoapp.data.repository
 
-import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -13,7 +12,6 @@ import com.kavrin.borutoapp.domain.repository.RemoteDaraSource
 import com.kavrin.borutoapp.util.Constants.ITEMS_PER_PAGE
 import kotlinx.coroutines.flow.Flow
 
-@ExperimentalPagingApi
 class RemoteDataSourceImpl(
 	private val borutoApi: BorutoApi,
 	private val borutoDatabase: BorutoDatabase
