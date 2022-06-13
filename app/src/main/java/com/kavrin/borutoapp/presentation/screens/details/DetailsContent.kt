@@ -1,8 +1,11 @@
 package com.kavrin.borutoapp.presentation.screens.details
 
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.BottomSheetValue.Collapsed
 import androidx.compose.material.BottomSheetValue.Expanded
@@ -24,6 +27,7 @@ import com.kavrin.borutoapp.presentation.components.InfoBox
 import com.kavrin.borutoapp.presentation.components.OrderedList
 import com.kavrin.borutoapp.ui.theme.*
 import androidx.compose.material.rememberBottomSheetScaffoldState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.layout.ContentScale
 import coil.compose.rememberImagePainter
 import com.kavrin.borutoapp.util.Constants.ABOUT_TEXT_MAX_LINES
@@ -46,7 +50,16 @@ fun DetailsContent(
 
 	val currentSheetFraction = scaffoldState.currentSheetFraction
 
+	val radiusAnim by animateDpAsState(
+		targetValue = if (currentSheetFraction == 1f)
+			EXTRA_LARGE_PADDING else EXPANDED_RADIUS_LEVEL
+	)
+
 	BottomSheetScaffold(
+		sheetShape = RoundedCornerShape(
+			topStart = radiusAnim,
+			topEnd = radiusAnim
+		),
 		scaffoldState = scaffoldState,
 		sheetPeekHeight = MIN_SHEET_HEIGHT,
 		sheetContent = {
@@ -204,7 +217,7 @@ fun BackgroundContent(
 	heroImage: String,
 	imageFraction: Float = 1f,
 	backgroundColor: Color = MaterialTheme.colors.surface,
-	onCloseClicked: () -> Unit
+	onCloseClicked: () -> Unit,
 ) {
 	val imageUrl = "$BASE_URL$heroImage"
 	val painter = rememberImagePainter(imageUrl) {
@@ -229,25 +242,34 @@ fun BackgroundContent(
 		//// Close Icon ////
 		Row(
 			modifier = Modifier
-			    .fillMaxWidth(),
+				.fillMaxWidth(),
 			horizontalArrangement = Arrangement.End
 		) {
 			IconButton(
 				modifier = Modifier
-				    .padding(all = SMALL_PADDING),
+					.padding(all = SMALL_PADDING),
 				onClick = { onCloseClicked() }
 			) {
-				Icon(
+				Box(
 					modifier = Modifier
-					    .size(INFO_ICON_SIZE),
-					imageVector = Icons.Default.Close,
-					contentDescription = stringResource(id = R.string.close_icon),
-					tint = Color.White
-				)
+						.background(
+							color = Color.Black.copy(alpha = 0.1f),
+							shape = CircleShape
+						)
+						.size(INFO_ICON_SIZE * 1.5f)
+				) {
+					Icon(
+						modifier = Modifier
+							.size(INFO_ICON_SIZE)
+							.align(Alignment.Center),
+						imageVector = Icons.Default.Close,
+						contentDescription = stringResource(id = R.string.close_icon),
+						tint = Color.White
+					)
+				}
 			}
 		}
 
-		
 
 	}
 }
@@ -258,19 +280,19 @@ fun BackgroundContent(
  * Should return 0 when bottomSheet is Expanded and 1 when it is Collapsed
  */
 val BottomSheetScaffoldState.currentSheetFraction: Float
-get() {
-	val fraction = bottomSheetState.progress.fraction
-	val targetValue = bottomSheetState.targetValue
-	val currentValue = bottomSheetState.currentValue
+	get() {
+		val fraction = bottomSheetState.progress.fraction
+		val targetValue = bottomSheetState.targetValue
+		val currentValue = bottomSheetState.currentValue
 
-	return when {
-		currentValue == Collapsed && targetValue == Collapsed -> 1f
-		currentValue == Expanded && targetValue == Expanded -> 0f
-		currentValue == Collapsed && targetValue == Expanded -> 1f - fraction
-		currentValue == Expanded && targetValue == Collapsed -> 0f + fraction
-		else -> fraction
+		return when {
+			currentValue == Collapsed && targetValue == Collapsed -> 1f
+			currentValue == Expanded && targetValue == Expanded -> 0f
+			currentValue == Collapsed && targetValue == Expanded -> 1f - fraction
+			currentValue == Expanded && targetValue == Collapsed -> 0f + fraction
+			else -> fraction
+		}
 	}
-}
 
 @Preview
 @Composable
